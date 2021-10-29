@@ -1,0 +1,15 @@
+@import "bootstrap/dist/css/bootstrap";
+@import "font-awesome";
+
+html,
+body {
+  height: 100%;
+}
+
+.home {
+  height: 71vh;
+}
+
+#sticky-footer {
+  flex-shrink: none;
+}
