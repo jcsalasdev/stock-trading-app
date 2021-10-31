@@ -86,6 +86,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-bootstrap-views (1.1.0)
     erubi (1.10.0)
     faraday (1.8.0)
       faraday-em_http (~> 1.0)
@@ -254,6 +255,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   devise
+  devise-bootstrap-views
   font-awesome-rails
   iex-ruby-client
   jbuilder (~> 2.7)
