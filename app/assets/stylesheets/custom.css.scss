@@ -6,10 +6,14 @@ body {
   height: 100%;
 }
 
-.home {
-  height: 71vh;
+.page_content {
+  height: 71.5vh;
 }
 
 #sticky-footer {
   flex-shrink: none;
+}
+
+.message {
+  height: 4rem;
 }
