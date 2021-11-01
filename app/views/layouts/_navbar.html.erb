@@ -8,11 +8,14 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
+        <%= link_to 'Home', root_path, class: "nav-link" %>
       </li>
+      <% if user_signed_in? %>
       <li class="nav-item">
         <a class="nav-link" href="#">History</a>
       </li>
+      <% end %>
+      <% if current_user %>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Admin
@@ -23,19 +26,35 @@
           <a class="dropdown-item" href="#">All Trader</a>
         </div>
       </li>
+       <% end %>
     </ul>
 
     <ul class="navbar-nav ml-auto">
+      <% if user_signed_in? %>
         <li class="nav-item active">
-          <a class="nav-link" href="#">Portfolio<span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#">Portfolio</a>
         </li>
 
         <li class="nav-item active">
         <span class="nav-link">|</span>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" ><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></a>
+       
+        <li class="nav-item active">
+          <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "nav-link" %>
         </li>
+        <% else %>
+         <li class="nav-item active">
+          <%= link_to "Sign In", new_session_path(resource_name), class: "nav-link"  %>
+        </li>
+
+        <li class="nav-item active">
+        <span class="nav-link">|</span>
+        </li>
+       
+        <li class="nav-item active">
+         <%= link_to "Sign up", new_registration_path(resource_name), class: "nav-link" %>
+        </li>
+      <% end %>
     </ul>
   </div>
 </nav>

@@ -12,9 +12,11 @@
 
   <body>
   <%= render "layouts/navbar" %>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-    <%= yield %>
-  <%= render "layouts/footer" %>
+  <div  class="container page_content">
+  <%= render "layouts/message" %>
+  <%= yield %>
+
+  </div>
+    <%= render "layouts/footer" %>
   </body>
 </html>
