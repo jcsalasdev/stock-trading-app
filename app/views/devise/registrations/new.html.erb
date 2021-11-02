@@ -23,7 +23,7 @@
   
   <div class="field">
     <%= f.label :role_id, class: "label"  %><br>
-    <%= f.select :role_id, options_from_collection_for_select(Role.all, :id, :name, f.object.role_id), class: "select" %>
+    <%= f.collection_select :role_id, Role.all, :id, :name, class: "custom-select" %>
   </div>
   <div class="actions">
     <%= f.submit "Sign up" %>
