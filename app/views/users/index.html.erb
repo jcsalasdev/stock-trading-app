@@ -1,14 +1,15 @@
 <div class="container">
   <% if user_signed_in? %>
     <% if current_user.role_id === 1 %>
-      <table class ="table">
+      <table class ="table table-hover table-striped text-center">
           <thead >
             <tr>
               <th>ID</th>
               <th>EMAIL</th>
               <th>ROLE</th>
+              <th>BALANCE</th>
               <th>STATUS</th>
-              <th colspan="2"></th>
+              <th colspan="2">Action</th>
             </tr>
           </thead>
 
@@ -19,11 +20,13 @@
                     <td><%= trader.id %></td>  
                     <td><%= trader.email %></td>  
                     <td><%= Role.find_by(id: trader.role_id).name %></td>  
-                    <td><%= trader.status ? "approved" : "pending" %></td>
+                    <td><%= number_to_currency(trader.balance, unit: "$") %></td>  
+                    <td><%= trader.status ? "approved" : "pending" %></td> 
                     <% if !trader.status %>
                       <td><%= link_to 'approve', user_path(trader.id), method: :patch %></td>
-                      <td><%= link_to 'remove' %></td>
-                    <% end %>      
+                      <% else %> 
+                       <td>-</td>  
+                    <% end %>    
                   <% end %>  
                 </tr>
                <% end %>
