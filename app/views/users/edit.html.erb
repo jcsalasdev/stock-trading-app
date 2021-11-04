@@ -1,0 +1,20 @@
+<h2>Update</h2> 
+
+<%= form_for(@user, url: @user ) do |f| %>
+  <%= render "devise/shared/error_messages", resource: @user %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :role_id, class: "label"  %><br>
+    <%= f.collection_select :role_id, Role.all, :id, :name, class: "custom-select" %>
+  </div>
+ 
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+

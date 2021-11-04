@@ -21,14 +21,14 @@
             Admin
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">New Trader</a>
-            <%= link_to 'Peding Trader', users_path, class: "dropdown-item" %>
-            <a class="dropdown-item" href="#">All Trader</a>
+            <%= link_to 'New Trader', new_user_path, class: "dropdown-item" %>
+            <%= link_to 'All Accounts', users_path, class: "dropdown-item" %>
           </div>
         </li>
         <% end %>
       <% end %>
     </ul>
+
 
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>

@@ -6,7 +6,7 @@ class User < ApplicationRecord
          :confirmable
 
   validates :role_id, presence: true
-  has_one :role
+  belongs_to :role
 
   before_validation :set_user_status
   def set_user_status

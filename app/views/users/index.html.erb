@@ -18,7 +18,7 @@
                 <tr>
                   <% if trader.role_id === 2 %>
                     <td><%= trader.id %></td>  
-                    <td><%= trader.email %></td>  
+                    <td><%= link_to trader.email, edit_user_path(trader) %></td>  
                     <td><%= Role.find_by(id: trader.role_id).name %></td>  
                     <td><%= number_to_currency(trader.balance, unit: "$") %></td>  
                     <td><%= trader.status ? "approved" : "pending" %></td> 
