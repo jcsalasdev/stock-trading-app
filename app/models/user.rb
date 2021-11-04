@@ -7,4 +7,14 @@ class User < ApplicationRecord
 
   validates :role_id, presence: true
   has_one :role
+
+  before_validation :set_user_status
+  def set_user_status
+    if self.role_id == 1
+      self.status = true
+    else 
+      self.status = false
+    end
+  end
+
 end

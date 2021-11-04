@@ -12,22 +12,22 @@
       </li>
       <% if user_signed_in? %>
         <li class="nav-item">
-          <a class="nav-link" href="#">History</a>
+          <a class="nav-link active" href="#">Transaction</a>
         </li>
       
         <% if current_user.role_id === 1 %>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">New Trader</a>
-            <a class="dropdown-item" href="#">Pending Trader</a>
+            <%= link_to 'Peding Trader', users_path, class: "dropdown-item" %>
             <a class="dropdown-item" href="#">All Trader</a>
           </div>
         </li>
-       <% end %>
         <% end %>
+      <% end %>
     </ul>
 
     <ul class="navbar-nav ml-auto">
