@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin
+
   def index
     @users = User.all
   end
@@ -28,9 +29,12 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
     if @user.update(user_params)
         @user.save
         flash[:notice] = 'You have successfully update the user'
+        redirect_to users_path
       else
         render :edit
     end
@@ -64,15 +68,15 @@ class UsersController < ApplicationController
     params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :status)
   end
 
-  def set_user
-    @user = User.find(params[:id])
+  def user_params
+    params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :status)
   end
 
+
   def approved
-    params.permit(:users)
     @user = User.find(params[:id])
     @user.update_attribute(:status, true)
-    redirect_to pending_users_path
+    redirect_to pending_user_path
   end
 
   def require_admin
