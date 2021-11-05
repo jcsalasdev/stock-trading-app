@@ -9,18 +9,27 @@
               <th>ROLE</th>
               <th>BALANCE</th>
               <th>STATUS</th>
+              <th colspan="2">Action</th>
             </tr>
           </thead>
 
           <tbody>
               <% User.all.each do |trader| %>
                 <tr>
-                  <% if trader.role_id === 2 %>
+                  <% if trader.role_id === 2 && trader.status === false %>
                     <td><%= trader.id %></td>  
                     <td><%= link_to trader.email, edit_user_path(trader) %></td>  
                     <td><%= Role.find_by(id: trader.role_id).name %></td>  
                     <td><%= number_to_currency(trader.balance, unit: "$") %></td>  
-                    <td><%= trader.status ? "approved" : "pending" %></td>
+                    <td><%= trader.status ? "approved" : "pending" %></td> 
+                    <% if !trader.status %>
+                    <td>
+                        <%=link_to 'Approve', update_pending_user_path(trader), method: :patch%>
+                        <%=link_to 'Decline', user_path(trader), method: :delete, data: {confirm: "Are you sure you want to decline and delete this trader"}%>
+                    </td>
+                      <% else %> 
+                       <td>-</td>  
+                    <% end %>    
                   <% end %>  
                 </tr>
                <% end %>

@@ -10,13 +10,12 @@ class UsersController < ApplicationController
   end
 
   def create
-
     @user = User.new(user_params)
-      if @user.save
-          flash[:notice] = "Account have successfully created"
-          redirect_to users_path
-      else
-          render "new"
+    if @user.save
+        flash[:notice] = "Account have successfully created"
+        redirect_to users_path
+    else
+        render "new"
     end
   end
 
@@ -29,29 +28,51 @@ class UsersController < ApplicationController
   end
 
   def update
-  (current_user.role_id === 2) ? pending : approved
-  if @user.update(user_params)
+    if @user.update(user_params)
         @user.save
         flash[:notice] = 'You have successfully update the user'
       else
         render :edit
-      end
+    end
+  end
+
+ def destroy
+    @user = User.find(params[:id])
+    if @user.destroy
+      flash[:notice] = 'You have Successfully rejected pending trader'
+
+    else
+      flash.now[:alert] = 'There is something wrong please try again.'
+    end
+  end
+
+  def pending_users
+  
+  end
+
+  def edit_pending_users
+    @users = current_user
+  end
+
+  def update_pending_users
+    (current_user.role_id === 2) ? pending : approved
   end
 
   private
 
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :status)
-end
+  end
 
-def set_user
+  def set_user
     @user = User.find(params[:id])
-end
+  end
 
   def approved
+    params.permit(:users)
     @user = User.find(params[:id])
     @user.update_attribute(:status, true)
-    redirect_to users_path
+    redirect_to pending_users_path
   end
 
   def require_admin

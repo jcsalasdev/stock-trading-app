@@ -22,7 +22,9 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to 'New Trader', new_user_path, class: "dropdown-item" %>
-            <%= link_to 'All Accounts', users_path, class: "dropdown-item" %>
+            <%= link_to 'All Traders', users_path, class: "dropdown-item" %>
+            <%= link_to 'Pending Traders', pending_user_path, class: "dropdown-item" %>
+           
           </div>
         </li>
         <% end %>
@@ -32,14 +34,17 @@
 
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Portfolio</a>
-        </li>
+        <% if current_user.role_id === 2  %>
+      
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Portfolio</a>
+          </li>
 
-        <li class="nav-item active">
-        <span class="nav-link">|</span>
-        </li>
-       
+          <li class="nav-item active">
+          <span class="nav-link">|</span>
+          </li>
+        <% end %>
+        
         <li class="nav-item active">
           <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: "nav-link" %>
         </li>
