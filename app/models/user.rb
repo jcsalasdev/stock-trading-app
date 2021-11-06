@@ -4,6 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable
+         
+  has_many :user_stocks
+  has_many :stocks, through: :user_stocks
 
   validates :role_id, presence: true
   belongs_to :role
