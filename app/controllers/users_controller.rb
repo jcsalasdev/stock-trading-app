@@ -43,7 +43,7 @@ class UsersController < ApplicationController
  def destroy
     @user = User.find(params[:id])
     if @user.destroy
-      flash[:notice] = 'You have Successfully rejected pending trader'
+      flash[:notice] = 'You have Successfully remove the pending trader'
 
     else
       flash.now[:alert] = 'There is something wrong please try again.'
@@ -67,11 +67,6 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :status)
   end
-
-  def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :role_id, :status)
-  end
-
 
   def approved
     @user = User.find(params[:id])
