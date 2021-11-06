@@ -37,7 +37,7 @@
         <% if current_user.role_id === 2  %>
       
           <li class="nav-item active">
-            <a class="nav-link" href="#">Portfolio</a>
+            <%= link_to "Porfolio", my_portfolio_path, class: "nav-link"  %>
           </li>
 
           <li class="nav-item active">

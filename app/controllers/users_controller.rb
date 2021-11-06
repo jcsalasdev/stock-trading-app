@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :require_admin
-
+  before_action :require_admin, except: [:my_portfolio]
+  def my_portfolio
+    @tracked_stocks = current_user.stocks
+  end
   def index
     @users = User.all
   end
