@@ -1,0 +1,7 @@
+<% if @stock %>
+  <div>
+    Symbol: <%= @stock.ticker %>
+    Company name: <%= @stock.name %>
+    Price: <%= @stock.last_price %>
+  </div>
+<% end %>
