@@ -20,4 +20,14 @@ class User < ApplicationRecord
     end
   end
 
+  def stock_already_tracking?(ticker_symbol)
+    stock = Stock.check_db(ticker_symbol)
+    return false unless stock
+    stocks.where(id: stock.id).exists?
+  end
+
+  def can_track?(ticker_symbol)
+    !stock_already_tracking?(ticker_symbol)
+  end
+
 end
