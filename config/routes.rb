@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :user_stocks
+  resources :user_stocks, only: [:create, :destroy]
   devise_for :users
   scope :admin do
     resources :users#, only: [:index, :show, :edit, :update, :destroy, :new, :create]

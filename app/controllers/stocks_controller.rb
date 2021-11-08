@@ -8,13 +8,13 @@ class StocksController < ApplicationController
         end
       else
         respond_to do |format|
-          flash.now[:alert] = "Something went wrong."
+          flash[:alert] = "Something went wrong."
           format.js { render partial: 'layouts/message' }
         end
       end
     else
       respond_to do |format|
-        flash.now[:alert] = "Search can't be blank."
+        flash[:alert] = "Search can't be blank."
         format.js { render partial: 'layouts/message' }
       end
     end
