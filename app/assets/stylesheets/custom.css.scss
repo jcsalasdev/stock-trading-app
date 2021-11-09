@@ -25,14 +25,17 @@ body {
 .most_active {
   height: fit-content;
   width: 400px;
+  background-color: black;
 
   border-radius: 16px;
-  background: #17141d;
-  box-shadow: -1rem 0 3rem #000;
-
-  transition: 0.2s;
+  transition: 0.5s;
 }
-
+.most_active:nth-child(odd) {
+  box-shadow: -0.5rem 0 2rem #000;
+}
+.most_active:nth-child(even) {
+  box-shadow: 0.5rem 0 2rem #000;
+}
 .most_active:nth-child(odd):hover {
   transform: translateX(-3rem);
 }
