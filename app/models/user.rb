@@ -8,6 +8,9 @@ class User < ApplicationRecord
   has_many :user_stocks
   has_many :stocks, through: :user_stocks
 
+  # has_many :transactions
+  # has_many :stocks, through: :transactions
+  
   validates :role_id, presence: true
   belongs_to :role
 
