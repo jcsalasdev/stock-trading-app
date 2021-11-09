@@ -1,2 +1,37 @@
-<h1>Chart</h1>
-<h1>Top 10 Stocks</h1>
+<div class="mt-5 container top_10-container">
+  <% if current_user && current_user.role_id === 2 %>
+    <div class= "card text-center mb-5">
+      <div class="card-body">
+        <% if current_user.status? %>
+          <h3 class="card-title">Balance</h3>
+          <h3><%= number_to_currency(current_user.balance) %></h3>
+        <% else %>
+          <h3>Your account is still pending for approval.</h3>
+          <h5>You can not buy or sell stocks yet, but you may navigate the pages.</h5>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+   <h2 class="text-center mb-3 text-uppercase font-weight-bold"> Top 10 Stocks</h2>
+    <div class="d-flex flex-wrap justify-content-center top_10">
+        <% if @home.empty? %>
+            <span>Something went wrong.</span>
+          <% else %>
+          <% @home.each do |stock| %>
+          <div class="border rounded mb-2 mx-2 most_active" style="max-width: 25rem;">
+            <div class="symbol card-header text-center text-white font-weight-bold"><%= stock.symbol %></div>
+            <div class="card-body bg-white px-2 py-1">
+              <h5 class="card-title"><%= stock.company_name %></h5>
+              <p class="card-text"><%= number_to_currency(stock.avg_total_volume) %></p>
+              <div class="d-flex justify-content-between border-top p-2">
+                <p class="card-text mb-0"><%= number_to_currency(stock.latest_price) %></p>
+                <p class="card-text <%= stock.change_percent > 0 ? 'text-success' : 'text-danger' %>">
+                    <%= stock.change_percent_s %>
+                </p>
+              </div>
+            </div>
+          </div>
+          <% end %>
+        <% end %>
+  </div> 
+</div>

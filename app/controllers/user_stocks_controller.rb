@@ -1,4 +1,5 @@
 class UserStocksController < ApplicationController
+
   def create
     stock = Stock.check_db(params[:ticker])
     if stock.blank?
