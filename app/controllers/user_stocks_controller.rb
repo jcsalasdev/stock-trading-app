@@ -20,6 +20,8 @@ class UserStocksController < ApplicationController
   end
 
   def edit
-    byebug
+    # byebug
+   @user_stock = UserStock.find(params[:id])
+   @stock = Stock.find(params[:stock])
   end
 end

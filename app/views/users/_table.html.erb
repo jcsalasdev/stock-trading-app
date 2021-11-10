@@ -15,7 +15,7 @@
           <th scope="row"><%= stock.ticker %></th>
           <td><%= stock.name %></td>
           <td><%= stock.last_price %></td>
-          <td><%= link_to 'Buy', edit_user_stock_path(UserStock.where(user_id: current_user.id, stock_id: stock.id).first), 
+          <td><%= link_to 'Buy', edit_user_stock_path(id: UserStock.where(user_id: current_user.id, stock_id: stock.id).first, function: "buy", stock: stock), 
            class: "btn btn-xs  btn-success" %></td>
         </tr>
       <% end %>
