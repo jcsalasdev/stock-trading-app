@@ -31,10 +31,10 @@ body {
   transition: 0.5s;
 }
 .most_active:nth-child(odd) {
-  box-shadow: -0.5rem 0 2rem #000;
+  box-shadow: -0.5rem 0 1rem #000;
 }
 .most_active:nth-child(even) {
-  box-shadow: 0.5rem 0 2rem #000;
+  box-shadow: 0.5rem 0 1rem #000;
 }
 .most_active:nth-child(odd):hover {
   transform: translateX(-3rem);
