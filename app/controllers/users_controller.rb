@@ -24,6 +24,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @tracked_stocks = @user.stocks
   end
 
   def edit
@@ -73,6 +74,7 @@ class UsersController < ApplicationController
   def approved
     @user = User.find(params[:id])
     @user.update_attribute(:status, true)
+    ApprovedMailer.with(user: @user).trader_approved.deliver_later
     redirect_to pending_user_path
   end
 

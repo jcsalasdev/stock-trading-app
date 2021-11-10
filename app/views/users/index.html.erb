@@ -1,7 +1,7 @@
 <div class="container">
   <% if user_signed_in? %>
     <% if current_user.role_id === 1 %>
-      <table class ="table table-hover table-striped text-center">
+      <table class ="table table-hover text-center">
           <thead >
             <tr>
               <th>ID</th>
@@ -17,7 +17,7 @@
                 <tr>
                   <% if trader.role_id === 2 %>
                     <td><%= trader.id %></td>  
-                    <td><%= link_to trader.email, edit_user_path(trader) %></td>  
+                    <td><%= link_to trader.email, user_path(trader) %></td>  
                     <td><%= Role.find_by(id: trader.role_id).name %></td>  
                     <td><%= number_to_currency(trader.balance, unit: "$") %></td>  
                     <td><%= trader.status ? "approved" : "pending" %></td>
