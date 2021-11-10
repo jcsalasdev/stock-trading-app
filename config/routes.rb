@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :user_stocks, only: [:create, :destroy]
+  resources :user_stocks, only: [:create, :destroy, :edit]
   resources :transaction
   devise_for :users
   scope :admin do
@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   patch "/admin/pending_users/:id", to: 'users#update_pending_users', as: 'update_pending_user'
   get 'my_portfolio', to: 'users#my_portfolio'
   get 'search_stock', to: 'stocks#search'
+  get 'buy_stock', to: 'stocks#buy'
+  get 'sell_stock', to: 'stocks#sell'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root "pages#home"
 end

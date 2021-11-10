@@ -1,5 +1,5 @@
 class UserStocksController < ApplicationController
-
+  
   def create
     stock = Stock.check_db(params[:ticker])
     if stock.blank?
@@ -17,5 +17,9 @@ class UserStocksController < ApplicationController
     user_stock.destroy
     flash[:alert] = "Stock removed from your portfolio"
     redirect_to my_portfolio_path
+  end
+
+  def edit
+    byebug
   end
 end
