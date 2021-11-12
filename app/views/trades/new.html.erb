@@ -1,0 +1,19 @@
+<h1>Trade </h1>
+
+<%= form_with model: @trade do |form| %>
+  <%= form.hidden_field :user_stock_id, value: params[:user_stock_id] %>
+  <%= form.hidden_field :user_id, value: current_user.id %>
+  <%= form.select :trade_type, ["buy", "sell"] %>
+  <%= form.label :quantity %>
+  <%= form.number_field :quantity %>
+  <%= form.submit 'Trade' %>
+<% end %>
+
+<% if @trade %>
+<div>
+  <h3> No of stock: <%= @trade.quantity %></h3>
+ 
+<h3> Total Stock: <%= @user_stock.stock_quantity %></h3>
+
+</div>
+<% end %>
