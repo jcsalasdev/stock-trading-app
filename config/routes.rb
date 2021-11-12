@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get 'my_portfolio', to: 'users#my_portfolio'
   get 'search_stock', to: 'stocks#search'
   get 'trading_page', to: 'user_stocks#trading_page'
+  get 'cart', to: 'trades#cart'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root "pages#home"
 end
