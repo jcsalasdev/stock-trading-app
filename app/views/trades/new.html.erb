@@ -17,9 +17,4 @@
   <h3> Current quantity of  Stock: <%= @user_stock.stock_quantity %></h3>
 </div>
 
-<% if !@trade.quantity.blank? %>
-  <div>
-    <h3>Quantity of stocks to <%= @trade.trade_type %>: <%= @trade.quantity %></h3>
-    <h3>Total price: <%= @total_price %></h3>
-  </div>
-<% end %>
+<%= render 'cart' %>
