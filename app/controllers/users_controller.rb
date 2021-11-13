@@ -74,7 +74,7 @@ class UsersController < ApplicationController
   def approved
     @user = User.find(params[:id])
     @user.update_attribute(:status, true)
-    ApprovedMailer.with(user: @user).trader_approved.deliver_later
+    ApprovedMailer.with(email: @user.email).trader_approved.deliver_now
     redirect_to pending_user_path
   end
 
