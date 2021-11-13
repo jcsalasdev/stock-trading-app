@@ -15,7 +15,7 @@
           <%= link_to 'Transactions', transaction_path(current_user), class: "nav-link" %>
         </li>
       
-        <% if current_user.role_id === 2 %>
+        <% if current_user.role_id === 1 %>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Admin
@@ -34,7 +34,7 @@
 
     <ul class="navbar-nav ml-auto">
       <% if user_signed_in? %>
-        <% if current_user.role_id === 1  %>
+        <% if current_user.role_id === 2  %>
       
           <li class="nav-item active">
             <%= link_to "Porfolio", my_portfolio_path, class: "nav-link"  %>

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :user_stocks, only: [:create, :destroy]
+  resources :user_stocks, only: [:create, :update, :destroy]
   resources :transaction
   resources :trades
   devise_for :users

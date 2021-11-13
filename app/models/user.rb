@@ -15,7 +15,7 @@ class User < ApplicationRecord
   validates :role_id, presence: true
   belongs_to :role
 
-  before_validation :set_user_status
+  before_create :set_user_status
   def set_user_status
     if self.role_id == 1
       self.status = true

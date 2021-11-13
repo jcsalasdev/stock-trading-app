@@ -12,14 +12,16 @@ class TradesController < ApplicationController
     @trade.save
     flash[:notice] = "success"
     redirect_to my_portfolio_path
-    # @user = current_user
+    @user = current_user
     # @trade = Trade.new(trade_params)
-    # if @trade.save
-    #   flash[:notice] = "trade added"
+    if @trade.save
+       flash[:notice] = "trade added"
+        update_balance
+    #   update_stock
     #   render 'trades/new'
-    # else
-    #   render 'new'
-    # end
+    else
+       render 'new'
+     end
   end
 
   def cart
@@ -36,7 +38,28 @@ class TradesController < ApplicationController
     render 'trades/new'
   end
 
-  # private
+  private
+
+  def update_balance
+    case @trade.trade_type
+      when 'buy'
+        @user.update(balance: current_user.balance - @trade.total_price)
+      when 'sell'
+        @user.update(balance: current_user.balance +  @trade.total_price)
+    end
+        @user.save
+  end
+
+  def update_stock
+    case @trade.trade_type
+      when 'buy'
+        @user_stock.update(quantity: @user_stock.stock_quantity + @trade.quantity)
+      when 'sell'
+        @user_stock.update(quantity: @user_stock.stock_quantity - @trade.quantity)
+        @user_stock.delete if @user_stock.quantity.zero?
+    end
+    @user_stock.save
+  end
   #  def trade_params
   #   params.require(:trade).permit(:user_id, :user_stock_id, :trade_type, :quantity, :total_price)
   #  end
