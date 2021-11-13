@@ -16,6 +16,9 @@ class TradesController < ApplicationController
     else
       current_stock_quantity = @trade.quantity
     end
+    new_balance = current_user.balance - @trade.total_price
+    current_user.update(balance: new_balance)
+    current_user.save
     user_stock.update(stock_quantity: current_stock_quantity)
     user_stock.save
     flash.now[:notice] = "success"
