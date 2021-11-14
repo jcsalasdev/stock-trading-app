@@ -18,7 +18,7 @@ class TradesController < ApplicationController
     if @trade.save
         update_balance
         update_stock
-        flash[:notice] = "trade success"
+        flash[:notice] = "trade was successfull"
         redirect_to my_portfolio_path
     else
        render 'new'
@@ -51,14 +51,22 @@ class TradesController < ApplicationController
   end
 
   def update_stock
-    case @trade.trade_type
-      when 'buy'
-        user_stock = UserStock.find(params[:user_stock_id])
-        user_stock.update(stock_quantity: user_stock.stock_quantity + @trade.quantity)
-      when 'sell'
-        user_stock = UserStock.find(params[:user_stock_id])
-        user_stock.update(stock_quantity: user_stock.stock_quantity - @trade.quantity)
-    end
-    user_stock.save
+      case @trade.trade_type
+        when 'buy'
+          user_stock = UserStock.find(params[:user_stock_id])
+            if user_stock.stock_quantity
+              user_stock.update(stock_quantity: user_stock.stock_quantity + @trade.quantity)
+            else
+              user_stock.update(stock_quantity: @trade.quantity)
+            end
+        when 'sell'
+          user_stock = UserStock.find(params[:user_stock_id])
+          if user_stock.stock_quantity
+            user_stock.update(stock_quantity: user_stock.stock_quantity - @trade.quantity)
+          else
+            user_stock.update(stock_quantity: @trade.quantity)
+          end
+      end
+      user_stock.save
   end
 end
