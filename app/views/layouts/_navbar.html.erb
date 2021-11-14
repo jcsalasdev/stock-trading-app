@@ -11,8 +11,8 @@
         <%= link_to 'Home', root_path, class: "nav-link" %>
       </li>
       <% if user_signed_in? %>
-        <li class="nav-item">
-          <%= link_to 'Transactions', transaction_path(current_user), class: "nav-link" %>
+        <li class="nav-item active">
+          <%= link_to 'Transactions', trades_path, class: "nav-link" %>
         </li>
       
         <% if current_user.role_id === 1 %>

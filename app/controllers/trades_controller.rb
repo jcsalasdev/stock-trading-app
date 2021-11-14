@@ -1,4 +1,8 @@
 class TradesController < ApplicationController
+  def index
+    @trades = (current_user.role_id === 1) ? Trade.all.order('created_at DESC') : Trade.where(user_id: current_user.id).order('created_at DESC')
+  end
+
   def new
     ticker_symbol = params[:ticker]
     @stock = Stock.check_db(ticker_symbol)
@@ -51,12 +55,12 @@ class TradesController < ApplicationController
   end
 
   def update_stock
+    @user_stock = current_user.user_stocks.find_by(params[:stock_quantity])
     case @trade.trade_type
       when 'buy'
         @user_stock.update(quantity: @user_stock.stock_quantity + @trade.quantity)
       when 'sell'
         @user_stock.update(quantity: @user_stock.stock_quantity - @trade.quantity)
-        @user_stock.delete if @user_stock.quantity.zero?
     end
     @user_stock.save
   end
