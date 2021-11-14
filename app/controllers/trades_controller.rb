@@ -14,7 +14,18 @@ class TradesController < ApplicationController
     @trade = Trade.new(trade_type: params[:trade_type], quantity: params[:quantity], user_id: params[:user_id],
                         user_stock_id: params[:user_stock_id], total_price: params[:total_price])
     @trade.save
-    flash[:notice] = "success"
+    user_stock = UserStock.find(params[:user_stock_id])
+    if user_stock.stock_quantity
+      current_stock_quantity = user_stock.stock_quantity + @trade.quantity
+    else
+      current_stock_quantity = @trade.quantity
+    end
+    new_balance = current_user.balance - @trade.total_price
+    current_user.update(balance: new_balance)
+    current_user.save
+    user_stock.update(stock_quantity: current_stock_quantity)
+    user_stock.save
+    flash.now[:notice] = "success"
     redirect_to my_portfolio_path
     @user = current_user
     # @trade = Trade.new(trade_params)

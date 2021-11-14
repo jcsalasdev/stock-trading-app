@@ -6,4 +6,8 @@ class UserStock < ApplicationRecord
   def self.lookup(id)
     find(id)
   end
+
+  def self.update_db(params)
+    
+  end
 end
