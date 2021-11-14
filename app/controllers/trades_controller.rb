@@ -14,26 +14,12 @@ class TradesController < ApplicationController
     @trade = Trade.new(trade_type: params[:trade_type], quantity: params[:quantity], user_id: params[:user_id],
                         user_stock_id: params[:user_stock_id], total_price: params[:total_price])
     @trade.save
-    user_stock = UserStock.find(params[:user_stock_id])
-    if user_stock.stock_quantity
-      current_stock_quantity = user_stock.stock_quantity + @trade.quantity
-    else
-      current_stock_quantity = @trade.quantity
-    end
-    new_balance = current_user.balance - @trade.total_price
-    current_user.update(balance: new_balance)
-    current_user.save
-    user_stock.update(stock_quantity: current_stock_quantity)
-    user_stock.save
-    flash.now[:notice] = "success"
-    redirect_to my_portfolio_path
     @user = current_user
-    # @trade = Trade.new(trade_params)
     if @trade.save
-       flash[:notice] = "trade added"
         update_balance
-    #   update_stock
-    #   render 'trades/new'
+        update_stock
+        flash[:notice] = "trade success"
+        redirect_to my_portfolio_path
     else
        render 'new'
      end
@@ -49,7 +35,6 @@ class TradesController < ApplicationController
     quantity = params[:quantity]
     total_price = @stock.last_price * quantity.to_d
     @trade = Trade.new(user_id: params[:user_id], user_stock_id: params[:user_stock_id], trade_type: params[:trade_type], quantity: params[:quantity], total_price: total_price)
-    # @total_price  = @stock.last_price * @trade.quantity
     render 'trades/new'
   end
 
@@ -66,16 +51,14 @@ class TradesController < ApplicationController
   end
 
   def update_stock
-    @user_stock = current_user.user_stocks.find_by(params[:stock_quantity])
     case @trade.trade_type
       when 'buy'
-        @user_stock.update(quantity: @user_stock.stock_quantity + @trade.quantity)
+        user_stock = UserStock.find(params[:user_stock_id])
+        user_stock.update(stock_quantity: user_stock.stock_quantity + @trade.quantity)
       when 'sell'
-        @user_stock.update(quantity: @user_stock.stock_quantity - @trade.quantity)
+        user_stock = UserStock.find(params[:user_stock_id])
+        user_stock.update(stock_quantity: user_stock.stock_quantity - @trade.quantity)
     end
-    @user_stock.save
+    user_stock.save
   end
-  #  def trade_params
-  #   params.require(:trade).permit(:user_id, :user_stock_id, :trade_type, :quantity, :total_price)
-  #  end
 end
