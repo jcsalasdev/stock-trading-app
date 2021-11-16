@@ -1,4 +1,6 @@
 class TradesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_trader, only: [:create, :new]
   def index
     @trades = (current_user.role_id === 1) ? Trade.all.order('created_at DESC') : Trade.where(user_id: current_user.id).order('created_at DESC')
   end
@@ -39,6 +41,12 @@ class TradesController < ApplicationController
   end
 
   private
+
+  def require_trader
+    return if current_user.role_id === 2
+    flash[:alert] = 'Access denied'
+    redirect_to root_path
+  end
 
   def update_balance
     case @trade.trade_type
