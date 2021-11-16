@@ -1,4 +1,5 @@
 class TradesController < ApplicationController
+  before_action :require_approved
   before_action :authenticate_user!
   before_action :require_trader, only: [:create, :new]
   def index
@@ -44,6 +45,12 @@ class TradesController < ApplicationController
 
   def require_trader
     return if current_user.role_id === 2
+    flash[:alert] = 'Access denied'
+    redirect_to root_path
+  end
+
+  def require_approved
+    return if current_user.status?
     flash[:alert] = 'Access denied'
     redirect_to root_path
   end
