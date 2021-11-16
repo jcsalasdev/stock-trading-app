@@ -7,9 +7,11 @@ body {
 }
 
 .page_content {
-  min-height: 71.5vh;
+  min-height: 75vh;
 }
-
+.nav-link:hover {
+  color: gold !important;
+}
 #sticky-footer {
   flex-shrink: none;
 }

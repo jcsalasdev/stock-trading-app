@@ -25,6 +25,8 @@ class Stock < ApplicationRecord
                                             endpoint: 'https://sandbox.iexapis.com/v1')
     Rails.cache.fetch('active_stocks', expires_in: 12.hours) do
     client.stock_market_list(:mostactive)
+      rescue => exception
+        return nil
     end
   end
 

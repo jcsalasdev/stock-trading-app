@@ -1,6 +1,6 @@
-<%= gravatar_for @user, size: 200 %>
+<%= gravatar_for @user, size: 120 %>
 <h1 class="text-center mt-4"><%= @user.email %>'s profile</h1>
 <p  class="text-center"><%= link_to "Edit", edit_user_path(@user) %></p>
 
-<h3 class="text-center mt-4">Stocks</h3>
+<h3 class="text-center mt-4 text-uppercase">Stocks</h3>
 <%= render 'users/table' %>
