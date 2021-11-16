@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.destroy
       flash[:notice] = 'You have Successfully remove the pending trader'
-
+      redirect_to pending_user_path
     else
       flash.now[:alert] = 'There is something wrong please try again.'
     end

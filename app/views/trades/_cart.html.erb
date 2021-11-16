@@ -1,0 +1,8 @@
+<% if !@trade.quantity.blank? %>
+  <div>
+    <h3>Quantity of stocks to <%= @trade.trade_type %>: <%= @trade.quantity %></h3>
+    <h3>Total price: <%= @trade.total_price %></h3>
+    <%= link_to 'Confirm', trades_path( trade_type: @trade.trade_type, quantity: @trade.quantity , user_id: current_user.id, user_stock_id: @trade.user_stock_id, total_price: @trade.total_price ), 
+                                      method: :post, class: "btn btn-xs  btn-success" %>
+  </div>
+<% end %>
