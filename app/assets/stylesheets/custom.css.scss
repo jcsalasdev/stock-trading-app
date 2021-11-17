@@ -51,3 +51,16 @@ body {
 .form-inline {
   font-size: 1.4rem;
 }
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 90vh;
+  overflow: auto;
+}
+
+.my-custom-scrollbar::-webkit-scrollbar {
+  overflow: hidden;
+}
+.table-wrapper-scroll-y {
+  display: block;
+}

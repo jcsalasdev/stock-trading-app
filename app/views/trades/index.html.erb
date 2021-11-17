@@ -1,33 +1,35 @@
 <% if @trades.empty? %>
   <div class="text-center">
-    <h1>Transactions History</h1>
+    <h1 class="text-center mt-2">Transactions History</h1>
     <span>You don't have any transaction yet.</span>
   </div>
 
 <% else %>
-  <h1>Transactions History</h1>
-  <table class="table table-hover">
-    <thead class="bg-dark text-white">
-      <tr>
-        <th class= "text-center">Type</th>
-        <th class= "text-center">Ticker</th>
-        <th class= "text-center">Company</th>
-        <th class= "text-center">Quantity</th>
-        <th class= "text-center">Total</th>
-        <th class= "text-center">Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @trades.each do |trade| %>
+  <h1 class="text-center mt-2">Transactions History</h1>
+  <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table class="table table-hover scroll">
+      <thead class="bg-dark text-white ">
         <tr>
-          <td class= "text-center <%= trade.trade_type %>" ><%= trade.trade_type %></td>
-          <td class= "text-center"><%= Stock.find(trade.user_stock.stock_id).ticker %></td>
-          <td class= "text-center"><%= Stock.find(trade.user_stock.stock_id).name %></td>
-          <td class= "text-center"><%= trade.quantity %></td>
-          <td class= "text-center"><%= number_to_currency(trade.total_price) %></td>
-          <td class= "text-center"><%= localize(trade.created_at, :format => :long) %></td>
+          <th class= "text-center">Type</th>
+          <th class= "text-center">Ticker</th>
+          <th class= "text-center">Company</th>
+          <th class= "text-center">Quantity</th>
+          <th class= "text-center">Total</th>
+          <th class= "text-center">Date</th>
         </tr>
-      <% end %>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <% @trades.each do |trade| %>
+          <tr>
+            <td class= "text-center <%= trade.trade_type %>" ><%= trade.trade_type %></td>
+            <td class= "text-center"><%= Stock.find(trade.user_stock.stock_id).ticker %></td>
+            <td class= "text-center"><%= Stock.find(trade.user_stock.stock_id).name %></td>
+            <td class= "text-center"><%= trade.quantity %></td>
+            <td class= "text-center"><%= number_to_currency(trade.total_price) %></td>
+            <td class= "text-center"><%= localize(trade.created_at, :format => :long) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% end %>
