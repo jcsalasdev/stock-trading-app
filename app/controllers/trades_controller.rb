@@ -37,32 +37,38 @@ class TradesController < ApplicationController
     trade_type = params[:trade_type]
     quantity = params[:quantity]
     total_price = @stock.last_price * quantity.to_d
-
-    if params[:trade_type] == "buy"
-      if current_user.balance < total_price
-        respond_to do |format|
-          flash.now[:notice] = "You don't have enough balance for this transaction"
-          format.js { render partial: 'layouts/message' }
+    if valid_quantity?
+      if params[:trade_type] == "buy"
+        if current_user.balance < total_price
+          respond_to do |format|
+            flash.now[:notice] = "You don't have enough balance for this transaction"
+            format.js { render partial: 'layouts/message' }
+          end
+        else
+          respond_to do |format|
+            @trade = Trade.new(user_id: params[:user_id], user_stock_id: params[:user_stock_id], trade_type: params[:trade_type], quantity: params[:quantity], total_price: total_price)
+            format.js { render partial: 'trades/cart' }
+          end
         end
       else
-        respond_to do |format|
-          @trade = Trade.new(user_id: params[:user_id], user_stock_id: params[:user_stock_id], trade_type: params[:trade_type], quantity: params[:quantity], total_price: total_price)
-          format.js { render partial: 'trades/cart' }
+        if UserStock.find(user_stock_id).stock_quantity < quantity.to_f
+          respond_to do |format|
+            flash[:notice] = "You don't have enough stocks for this transaction"
+            format.js { render partial: 'layouts/message' }
+          end
+        else
+          respond_to do |format|
+            @trade = Trade.new(user_id: params[:user_id], user_stock_id: params[:user_stock_id], trade_type: params[:trade_type], quantity: params[:quantity], total_price: total_price)
+            format.js { render partial: 'trades/cart' }
+          end
         end
+    
       end
     else
-      if UserStock.find(user_stock_id).stock_quantity < quantity.to_f
-        respond_to do |format|
-          flash[:notice] = "You don't have enough stocks for this transaction"
-          format.js { render partial: 'layouts/message' }
-        end
-      else
-        respond_to do |format|
-          @trade = Trade.new(user_id: params[:user_id], user_stock_id: params[:user_stock_id], trade_type: params[:trade_type], quantity: params[:quantity], total_price: total_price)
-          format.js { render partial: 'trades/cart' }
-        end
+      respond_to do |format|
+        flash[:notice] = "You have entered an invalid quantity"
+            format.js { render partial: 'layouts/message' }
       end
-   
     end
   end
 
@@ -108,5 +114,9 @@ class TradesController < ApplicationController
           end
       end
       user_stock.save
+  end
+
+  def valid_quantity?
+    !params[:quantity].blank? && params[:quantity].to_i != 0
   end
 end
