@@ -1,6 +1,7 @@
+<div id="message"></div>
 <h1>Trade </h1>
 
-<%= form_with url: cart_path, method: :get do |form| %>
+<%= form_with url: cart_path, local: false, method: :get do |form| %>
   <%= form.hidden_field :user_stock_id, value: params[:user_stock_id] %>
   <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.hidden_field :ticker, value: params[:ticker] %>
@@ -17,4 +18,4 @@
   <h3> Current quantity of  Stock: <%= @user_stock.stock_quantity %></h3>
 </div>
 
-<%= render 'cart' %>
+<div id="cart"></div>
