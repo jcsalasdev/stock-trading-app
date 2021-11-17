@@ -24,8 +24,8 @@
                     <td><%= trader.status ? "approved" : "pending" %></td> 
                     <% if !trader.status %>
                     <td>
-                        <%=link_to 'Approve', update_pending_user_path(trader), method: :patch%>
-                        <%=link_to 'Decline', user_path(trader), method: :delete, data: {confirm: "Are you sure you want to decline and delete this trader"}%>
+                        <%=link_to 'Approve', update_pending_user_path(trader),class:"btn btn-xs btn-primary", method: :patch%>
+                        <%=link_to 'Decline', user_path(trader),class:"btn btn-xs btn-danger", method: :delete, data: {confirm: "Are you sure you want to decline and delete this trader"}%>
                     </td>
                       <% else %> 
                        <td>-</td>  
