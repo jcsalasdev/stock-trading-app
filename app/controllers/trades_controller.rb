@@ -41,7 +41,7 @@ class TradesController < ApplicationController
       if params[:trade_type] == "buy"
         if current_user.balance < total_price
           respond_to do |format|
-            flash.now[:notice] = "You don't have enough balance for this transaction"
+            flash.now[:alert] = "You don't have enough balance for this transaction"
             format.js { render partial: 'layouts/message' }
           end
         else
@@ -54,7 +54,7 @@ class TradesController < ApplicationController
         if UserStock.find(user_stock_id).stock_quantity
           if UserStock.find(user_stock_id).stock_quantity < quantity.to_f
             respond_to do |format|
-              flash.now[:notice] = "You don't have enough stocks for this transaction"
+              flash.now[:alert] = "You don't have enough stocks for this transaction"
               format.js { render partial: 'layouts/message' }
             end
           else
@@ -65,7 +65,7 @@ class TradesController < ApplicationController
           end
           else
             respond_to do |format|
-              flash.now[:notice] = "You don't have enough stocks for this transaction"
+              flash.now[:alert] = "You don't have enough stocks for this transaction"
               format.js { render partial: 'layouts/message' }
             end
         end
@@ -73,7 +73,7 @@ class TradesController < ApplicationController
       end
     else
       respond_to do |format|
-        flash.now[:notice] = "You have entered an invalid quantity"
+        flash.now[:alert] = "You have entered an invalid quantity"
             format.js { render partial: 'layouts/message' }
       end
     end

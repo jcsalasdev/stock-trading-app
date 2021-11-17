@@ -1,31 +1,53 @@
 
-<%= form_for(@user, url: url) do |f| %>
-  <%= render "devise/shared/error_messages", resource: @user %>
+<div class="container py-4 h-100">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col col-xl-10">
+      <div class="card shadow" style="border-radius: 1rem;">
+        <div class="row g-0">
+          <div class="col-md-6 col-lg-5 d-none d-md-block">
+            <img
+                src="https://images.unsplash.com/photo-1618162773067-47314b48735d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80"
+                alt="login form"
+                class="img-fluid" style="border-radius: 1rem 0 0 1rem;"
+              />
+          </div>
+          <div class="col-md-6 col-lg-7 d-flex align-items-center">
+            <div class="card-body p-4 p-lg-4 text-black">
+                <%= form_for(@user, url: url) do |f| %>
+                  <%= render "devise/shared/error_messages", resource: @user %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+                  <div class="field form-outline mb-2">
+                    <%= f.label :email %><br />
+                    <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control form-control-md" %>
+                  </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+                  <div class="field form-outline mb-2">
+                    <%= f.label :password %>
+                    <% if @minimum_password_length %>
+                    <em>(<%= @minimum_password_length %> characters minimum)</em>
+                    <% end %><br />
+                    <%= f.password_field :password, autocomplete: "new-password", class:"form-control form-control-md" %>
+                  </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm Password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-  
-  <div class="field">
-    <%= f.label :role_id, class: "label"  %><br>
-    <%= f.collection_select :role_id, Role.all, :id, :name, class: "custom-select" %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+                  <div class="field form-outline mb-2">
+                    <%= f.label :password_confirmation, "Confirm Password" %><br />
+                    <%= f.password_field :password_confirmation, autocomplete: "new-password", class:"form-control form-control-md" %>
+                  </div>
+                  
+                  <div class="field form-outline mb-2">
+                    <%= f.label :role_id, class: "label"  %><br>
+                    <%= f.collection_select :role_id, Role.all, :id, :name, class: "custom-select" %>
+                  </div>
+                  <div class="actions">
+                    <%= f.submit "Sign up",class:"btn btn-dark btn-lg btn-block" %>
+                  </div>
+                <% end %>
 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

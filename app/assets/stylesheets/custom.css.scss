@@ -41,3 +41,13 @@ body {
 .most_active:nth-child(even):hover {
   transform: translateX(3rem);
 }
+
+#trade_type {
+  font-size: 1.4rem;
+  padding: 0 3px;
+  text-transform: capitalize;
+}
+
+.form-inline {
+  font-size: 1.4rem;
+}

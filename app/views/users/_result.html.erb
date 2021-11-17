@@ -1,8 +1,8 @@
 <% if @stock %>
   <div>
-    Symbol: <%= @stock.ticker %>
-    Company name: <%= @stock.name %>
-    Price: <%= @stock.last_price %>
+    <strong>Symbol:</strong> <%= @stock.ticker %>
+     <strong>Company:</strong> <%= @stock.name %>
+    <strong>Price:</strong> <%= number_to_currency(@stock.last_price) %>
     <% if current_user.can_track?(@stock.ticker) %>
       <%= link_to 'Add to portfolio', user_stocks_path( user: current_user, ticker: @stock.ticker ), 
                                       method: :post, class: "btn btn-xs  btn-success" %>

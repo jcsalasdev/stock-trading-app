@@ -1,5 +1,18 @@
 <div id="message"></div>
-<h1>My Portfolio</h1>
+<h1 class="text-center">My Portfolio</h1>
+ <% if current_user && current_user.role_id === 2 %>
+    <div class= "card text-center mb-5">
+      <div class="card-body">
+        <% if current_user.status? %>
+          <h3 class="card-title">Balance</h3>
+          <h3><%= number_to_currency(current_user.balance) %></h3>
+        <% else %>
+          <h3>Your account is still pending for approval.</h3>
+          <h5>You can not buy or sell stocks yet, but you may navigate the pages.</h5>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 <h3>Search Stocks</h3>
 <%= form_with url: search_stock_path, local: false, method: :get, class:"form-inline" do |form| %>
   <%= form.text_field :stock , class:"form-control mr-sm-2"%>

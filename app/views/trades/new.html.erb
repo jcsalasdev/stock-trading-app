@@ -1,21 +1,22 @@
 <div id="message"></div>
 <h1>Trade </h1>
 
-<%= form_with url: cart_path, local: false, method: :get do |form| %>
+<%= form_with url: cart_path, local: false, method: :get, class: "form-inline" do |form| %>
   <%= form.hidden_field :user_stock_id, value: params[:user_stock_id] %>
   <%= form.hidden_field :user_id, value: current_user.id %>
   <%= form.hidden_field :ticker, value: params[:ticker] %>
-  <%= form.select :trade_type, ["buy", "sell"] %>
-  <%= form.label :quantity %>
-  <%= form.number_field :quantity %>
-  <%= form.submit 'Trade' %>
+  <%= form.select :trade_type, ["buy", "sell"], class:"form-select" %>
+  <%= form.label :quantity, class:"ml-2" %>
+  <%= form.number_field :quantity, class:"form-control mx-2" %>
+  <%= form.submit 'Trade', class:"btn btn-primary" %>
+
 <% end %>
 
 
 <div>
   <h3> Company Name: <%= @stock.name %></h3>
-  <h3> Price: <%= @stock.last_price %></h3>
-  <h3> Current quantity of  Stock: <%= @user_stock.stock_quantity %></h3>
+  <h3> Price: <%= number_to_currency(@stock.last_price) %></h3>
+  <h3> Current quantity of  Stock: <%= (@user_stock.stock_quantity == nil) ? 0 : @user_stock.stock_quantity %></h3>
 </div>
 
 <div id="cart"></div>
