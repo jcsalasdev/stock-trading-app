@@ -25,7 +25,7 @@
         <% @trades.each do |trade| %>
           <tr>
           <% if current_user.role_id === 1 %>
-            <td class= "text-center"><%= User.find(trade.user_id).id %></td>
+            <td class= "text-center"><%= User.find(trade.user_id).email %></td>
           <% end %>
             <td class= "text-center <%= trade.trade_type %>" ><%= trade.trade_type %></td>
             <td class= "text-center"><%= Stock.find(trade.user_stock.stock_id).ticker %></td>
