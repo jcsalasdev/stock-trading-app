@@ -14,11 +14,8 @@
 
     <tbody>
     <% @tracked_stocks.each do |stock| %>
-       <% if current_user.role_id === 1 %>
-            <% user_stock = UserStock.where( user_id: @user.id, stock_id: stock.id).first %>
-          <% else %>
-            <% user_stock = UserStock.where( user_id: current_user.id, stock_id: stock.id).first %>
-      <% end %>
+        <% user_id = (current_user.role_id === 1) ? @user.id : current_user.id %>
+        <% user_stock = UserStock.where( user_id: user_id, stock_id: stock.id).first %>
         <tr>
           <td scope="row"><%= stock.ticker %></td>
           <td><%= stock.name %></td>
@@ -28,10 +25,10 @@
             <td class="">
             <%= link_to 'Trade', new_trade_path(user_stock_id: UserStock.where(user_id: current_user.id, stock_id: stock.id).first, ticker: stock.ticker),
                                     class: 'btn btn-xs btn-primary' %>
-          <% if user_stock.stock_quantity === nil ||  user_stock.stock_quantity === 0 %>
-            <%= link_to 'Remove', user_stock_path(stock), method: :delete, data: {confirm: 'Are you sure?'},
-                                          class: 'btn btn-xs btn-warning' %>
-          <% end %>
+            <% if user_stock.stock_quantity === nil ||  user_stock.stock_quantity === 0 %>
+              <%= link_to 'Remove', user_stock_path(stock), method: :delete, data: {confirm: 'Are you sure?'},
+                                            class: 'btn btn-xs btn-warning' %>
+            <% end %>
                     
             </td>
           <% end %>
