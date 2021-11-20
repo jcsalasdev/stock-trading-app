@@ -14,7 +14,11 @@
 
     <tbody>
     <% @tracked_stocks.each do |stock| %>
-      <% user_stock = UserStock.where( user_id: current_user.id, stock_id: stock.id).first %>
+       <% if current_user.role_id === 1 %>
+            <% user_stock = UserStock.where( user_id: @user.id, stock_id: stock.id).first %>
+          <% else %>
+            <% user_stock = UserStock.where( user_id: current_user.id, stock_id: stock.id).first %>
+      <% end %>
         <tr>
           <td scope="row"><%= stock.ticker %></td>
           <td><%= stock.name %></td>
