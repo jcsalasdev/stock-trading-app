@@ -104,11 +104,16 @@ class TradesController < ApplicationController
   end
 
   def update_stock
-    user_stock = UserStock.find(params[:user_stock_id])
       case @trade.trade_type
         when 'buy'
-            user_stock.update(stock_quantity: user_stock.stock_quantity + @trade.quantity)
+          user_stock = UserStock.find(params[:user_stock_id])
+            if user_stock.stock_quantity
+              user_stock.update(stock_quantity: user_stock.stock_quantity + @trade.quantity)
+            else
+              user_stock.update(stock_quantity: @trade.quantity)
+            end
         when 'sell'
+            user_stock = UserStock.find(params[:user_stock_id])
             user_stock.update(stock_quantity: user_stock.stock_quantity - @trade.quantity)
       end
       user_stock.save
